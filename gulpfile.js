@@ -8,7 +8,7 @@ const svgSprite = require('gulp-svg-sprites');
 var terser = require('gulp-terser');
 
 function styles(cb) {
-    return gulp.src('./ressources/liaisons/scss/**/*.scss')
+    return gulp.src('./ressources/scss/**/*.scss')
         .pipe(sourceMaps.init())
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(autoPrefixer({
@@ -22,12 +22,11 @@ function styles(cb) {
 
 function watch(cb) {
     connect.server({}, function (){ browserSync( {
-        // proxy: "localhost:8888/quiz/web" }); // cégep
+        // proxy: "localhost:8888/vueSocks" }); // cégep
         proxy: "localhost/vueSocks" }); // maison
     });
     gulp.watch('./*.php').on("change",browserSync.reload);
-    gulp.watch('./ressources/vues/**/*.php').on("change",browserSync.reload);
-    gulp.watch('./ressources/liaisons/scss/**/*.scss', gulp.series('styles'));
+    gulp.watch('./ressources/scss/**/*.scss', gulp.series('styles'));
     gulp.watch('./liaisons/js/*.js').on("change",browserSync.reload);
     gulp.watch('./*.html').on("change",browserSync.reload);
     cb();
@@ -45,7 +44,7 @@ var config = {
 };
 
 function sprite(){
-    return gulp.src('.ressource/liaisons/images/svg/*.svg')
+    return gulp.src('.ressource/images/svg/*.svg')
         .pipe(svgSprite(config))
         .pipe(gulp.dest('./liaisons/images/svg'));
 }

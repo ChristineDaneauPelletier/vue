@@ -18,7 +18,7 @@
           'container-spread': 'narrow',
   );
   .conteneur {
-    //background: susy-svg-grid($susy) no-repeat scroll;
+    background: susy-svg-grid($susy) no-repeat scroll;
   }
 }
 @media(min-width:$tablette){
@@ -29,7 +29,7 @@
           'container-spread': 'narrow'
   );
   .conteneur {
-    //background: susy-svg-grid($susy) no-repeat scroll;
+    background: susy-svg-grid($susy) no-repeat scroll;
   }
 }
 

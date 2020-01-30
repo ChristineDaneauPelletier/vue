@@ -13,37 +13,8 @@
 /*
 
 /** Importation des fonts **/
-//@import url('https://fonts.googleapis.com/css?family=Bungee|Emblema+One|Fredericka+the+Great|Open+Sans:400,600,700,800&display=swap');
-@font-face {
-  font-family: OpenSans;
-  src: url('../fontes/OpenSans-Regular.woff2') format('woff2'),
-  url('../fontes/OpenSans-Regular.woff') format('woff'),
-  url('../fontes/OpenSans-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: OpenSans-Bold;
-  src: url('../fontes/OpenSans-Bold.woff2') format('woff2'),
-  url('../fontes/OpenSans-Bold.woff') format('woff'),
-  url('../fontes/OpenSans-Bold.ttf') format('truetype');
-}
-@font-face {
-  font-family: Bungee;
-  src: url('../fontes/Bungee-Regular.woff2') format('woff2'),
-  url('../fontes/Bungee-Regular.woff') format('woff'),
-  url('../fontes/Bungee-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: FrederickatheGreat;
-  src: url('../fontes/FrederickatheGreat-Regular.woff2') format('woff2'),
-  url('../fontes/FrederickatheGreat-Regular.woff') format('woff'),
-  url('../fontes/FrederickatheGreat-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: EmblemaOne;
-  src: url('../fontes/EmblemaOne-Regular.woff2') format('woff2'),
-  url('../fontes/EmblemaOne-Regular.woff') format('woff'),
-  url('../fontes/EmblemaOne-Regular.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css?family=Bungee|Emblema+One|Fredericka+the+Great|Open+Sans:400,600,700,800&display=swap');
+
 
 /** Polices de caractères **/
 $fontePrimaire: OpenSans, Arial, sans-serif;
