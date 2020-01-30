@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exploration de Vue.js | Exercice Socks</title>
+</head>
+<body>
+
+<header></header>
+
+<main>
+    <div id="app">
+
+        <div class="product-image">
+            <img src="" />
+        </div>
+
+        <div class="product-info">
+            <h1>{{ product }}</h1>
+            <p class="description">{{ description }}</p>
+        </div>
+
+    </div>
+
+</main>
+
+<footer></footer>
+<!-- CDN v2018 -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="node_modules/jquery/dist/jquery.min.js">\x3C/script>')</script>
+
+<!-- On importe toutes les classes de l'application et on instancie l'application dans app.js. -->
+<script async src="node_modules/requirejs/require.js" data-main="liaisons/js/main.js"></script>
+
+<!--Version de Vue.js la plus à jour-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script src="liaisons/js/main.js"></script>
+</body>
+</html>

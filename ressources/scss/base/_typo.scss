@@ -1,0 +1,123 @@
+/**
+ * @author Christine Daneau-Pelletier <christine.daneau.pelletier@gmail.com>
+**/
+
+/**
+ * ---------------------------------------------------------
+ * TABLE DES MATIÈRES - Typographie responsive (Mobile First)
+ * ---------------------------------------------------------
+ * Base décimale
+ * Hiérarchie responsive
+ */
+
+
+
+/** Base décimale **/
+html{
+  font-size: 62.5%;
+}
+body {
+  /* 16px pour toutes les largeurs d'écran */
+  @include fontSize(16px);
+  /* facteur multiplicateur de la taille de la police 1.375x16 = 22 */
+  line-height: 1.375;
+  font-family: $fontePrimaire;
+  letter-spacing: 0.05em;
+}
+@media (min-width: $bureau) {
+  body {
+    line-height: 1.5;
+  }
+}
+//@media (min-width: $large) {
+//  body {
+//    line-height: 1.75;
+//  }
+//}
+
+
+h1, .h1,
+h2, .h2 {
+  color: $blanc;
+}
+
+   /** Hiérarchie responsive **/
+/*  plus proche = plus petit  &  plus loin = plus grand */
+
+/* TITRES NIVEAU 1 */
+h1,
+.h1 { /* = 32px */
+  @include fontSize(36px);
+  font-family: $fonteSecondaire;
+}
+@media (min-width: $bureau) {
+  h1,
+  .h1 { /* = 40px */
+    @include fontSize(36px);
+  }
+}
+@media (min-width: $large) {
+  h1,
+  .h1 { /* = 48px */
+    @include fontSize(42px);
+  }
+}
+
+
+/* TITRES NIVEAU 2 */
+h2,
+.h2 { /* = 24px */
+  @include fontSize(24px);
+}
+@media (min-width: $bureau) {
+  h2,
+  .h2 { /* = 32px */
+    @include fontSize(24px);
+  }
+}
+@media (min-width: $large) {
+  h2,
+  .h2 { /* = 36px */
+    @include fontSize(32px);
+  }
+}
+
+
+/* TITRES NIVEAU 3 */
+h3,
+.h3 { /* = 18px */
+  @include fontSize(20px);
+  font-weight: 600;
+}
+@media (min-width: $bureau) {
+  h3,
+  .h3 {  /* = 24px */
+    @include fontSize(20px);
+  }
+}
+@media (min-width: $large) {
+  h3,
+  .h3 { /* = 30px */
+    @include fontSize(24px);
+  }
+}
+
+
+/* TITRES NIVEAU 4 */
+h4,
+.h4 { /* = 16px */
+  @include fontSize(16px);
+}
+@media (min-width: $bureau) {
+  h4,
+  .h4 { /* = 18px */
+    @include fontSize(18px);
+  }
+}
+
+@media (min-width: $large) {
+  h4,
+  .h4 { /* = 22px */
+    @include fontSize(22px);
+  }
+}

@@ -1,0 +1,163 @@
+/**
+ * @author Christine Daneau-Pelletier <christine.daneau.pelletier@gmail.com>
+ *
+ * ------------------------------
+ * TABLE DES MATIÈRES - Boutons
+ * ------------------------------
+ * BOUTON INTRO
+ * *** Animation
+ * BOUTON
+ */
+
+/* --------------------------------------------- */
+/* BOUTON INTRO */
+/* --------------------------------------------- */
+.boutonCommencer {
+  display: inline-block;
+  margin: 50px;
+  border-radius: 3px;
+  padding: 12px 24px;
+  background: $jaune;
+  font-family: $fonteTertiaire;
+  @include fontSize(24px);
+  color: $terre;
+  @include shadowBase--box;
+  animation: cta 4s infinite;
+}
+
+/* Animation */
+/* --------------------------------------------- */
+@keyframes cta {
+  0% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.08);
+  }
+  9% {
+    transform: scale(1.02);
+  }
+  13% {
+    transform: scale(1.08);
+  }
+  17% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animCTA {
+  animation: cta 4s infinite;
+}
+
+/* --------------------------------------------- */
+/* BOUTON */
+/* --------------------------------------------- */
+.js .boutonQ {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Conteneur */
+.bouton {
+  display: flex;
+  flex-flow: row nowrap;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  box-shadow: 0px -10px 20px -5px rgba($terre, .5);
+
+  /* Inétrieur */
+  &__action, &__explication {
+    transition: all .3s ease-in-out;
+    display: block;
+    height: 100px;
+  }
+
+  &__action {
+    width: 100%;
+    @include fontSize(42px);
+    font-family: $fonteTertiaire;
+    color: $brun;
+    line-height: 2.45;
+    background: $orangeBrule;
+    overflow: hidden;
+  }
+  &--actif {
+    .bouton__action {
+      color: $terre;
+      background: $jaune;
+    }
+  }
+
+  &__explication {
+    transition: all .3s ease-in-out;
+    cursor: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 25px;
+    width: 0;
+    @include fontSize(18px);
+    text-align: left;
+    box-shadow: inset 0 0 0 10px $blanc;
+    &:empty {
+      padding: 0;
+    }
+
+    /* Texte */
+    &_debut {
+      min-width: 180px;
+      line-height: 1.2;
+      font-family: $fonteQuinquenaire;
+      @include fontSize(30px);
+    }
+  }
+
+
+  /* Adaptation de rétroaction si c'est une bonne ou mauvaise réponse */
+  /* --------------------------------------------- */
+  &--bonneReponse, &--mauvaiseReponse {
+    .bouton__action {
+      width: 25%;
+    }
+    .bouton__explication {
+      width: 75%;
+    }
+  }
+
+  &--bonneReponse {
+    .bouton__explication {
+      color: $terre;
+      background: $vert;
+    }
+  }
+
+  &--mauvaiseReponse {
+    .bouton__explication {
+      color: $blanc;
+      background: $rouge;
+    }
+  }
+}
+
+/* Animation */
+/* --------------------------------------------- */
+
+@keyframes fadeInTexte {
+  0% {
+    color: transparent;
+  }
+
+  100% {
+    color: auto;
+  }
+}
+
+.fadeInTx {
+  animation: fadeInTexte .8s cubic-bezier(.9,.01,.7,1);
+}
