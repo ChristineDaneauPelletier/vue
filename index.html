@@ -10,18 +10,53 @@
 </head>
 <body>
 
-<header></header>
+<header>
+    <nav class="nav-bar"></nav>
+</header>
 
 <main>
     <div id="app">
 
-        <div class="product-image">
-            <img src="" />
-        </div>
+        <div class="product">
+            <div class="product-image">
+                <img :src="image" />
+            </div>
+            <div class="product-info">
+                <h1>{{ product }} <a :href="lien_VM" target="_blank">Vue Mastery</a></h1>
+                <p class="description">{{ description }}</p>
+                <p v-if="inventaire > 10">En stock</p>
+                <p v-else-if="inventaire < 10 && inventaire > 0">Bientôt en rupture de stock ! <br>Quantité restante : {{ inventaire }}</p>
+                <p v-else>Rupture de stock</p>
 
-        <div class="product-info">
-            <h1>{{ product }}</h1>
-            <p class="description">{{ description }}</p>
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <ul class="liste__radio">
+                    <li v-for="grandeur in grandeurs">
+                        <!--Ici, on utilise le v-bind (:) pour avoir des attributs dynamique :D (id et for)-->
+                        <input
+                          type="radio"
+                          name="grandeur"
+                          :id="grandeur"
+                          class="screen-reader-only">
+                        <label :for="grandeur">{{ grandeur }}</label>
+                    </li>
+                </ul>
+                <div v-for="variation in variations" :key="variation.varId">
+                    <span>{{ variation.varCouleur }} </span>
+                </div>
+
+                <p><a :href="lien_plus">Plus de bas <span v-show="puer">puants </span>!</a></p>
+
+                <div class="flex">
+                    <button @click="panier += 1">Ajouter au panier</button>
+                    <div class="cart">
+                        <p>Panier ({{ panier }})</p>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>

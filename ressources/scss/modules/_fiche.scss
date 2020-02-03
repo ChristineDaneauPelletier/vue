@@ -1,0 +1,149 @@
+/**
+ * @author Adam Jahr - Atomjar
+ * @description Stylesheet for Vue Mastery's Intro to Vue course
+ * <https://gist.github.com/atomjar/67db5aa9b7b9013dcf0d91c91f54e1a9>
+ *
+ * -------------------------------------
+ * TABLE DES MATIÈRES - fiche de produit
+ * -------------------------------------
+ * ***
+ *
+ */
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color:#282828;
+  margin: 0;
+}
+
+.nav-bar {
+  background: linear-gradient(-90deg, #84CF6A, #16C0B0);
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.product {
+  display: flex;
+  flex-flow: wrap;
+  padding: 1rem;
+}
+
+img {
+  border: 1px solid #d8d8d8;
+  width: 70%;
+  margin: 40px 40px 200px;
+  box-shadow: 0 .5px 1px #d8d8d8;
+}
+
+.product-image {
+  width: 80%;
+}
+
+.product-image,
+.product-info {
+  margin-top: 10px;
+  width: 50%;
+}
+
+.color-box {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.cart {
+  border: 1px solid #d8d8d8;
+  margin: 0 20px;
+  height: fit-content;
+  padding: 10px 20px;
+
+  p {
+    margin: 0;
+  }
+}
+
+button {
+  border: none;
+  border-radius: 2px;
+  height: fit-content;
+  background-color: #1E95EA;
+  color: white;
+  padding: 10px 20px;
+}
+
+.disabledButton {
+  background-color: #d8d8d8;
+}
+
+.review-form {
+  width: 400px;
+  padding: 20px;
+  margin: 40px;
+  border: 1px solid #d8d8d8;
+}
+
+input {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+}
+
+.tab {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.activeTab {
+  color: #16C0B0;
+  text-decoration: underline;
+}
+
+
+
+
+
+
+/**
+ * @author Christine Daneau-Pelletier <christine.daneau.pelletier@gmail.com>
+ *
+ * --------------------------------
+ * Styles ajoutés
+ * --------------------------------
+ *
+ */
+
+.liste__radio {
+  list-style: none;
+  padding: 20px 0;
+
+  li {
+    display: inline-block;
+  }
+
+  label {
+    margin: 0 5px;
+    width: 70px;
+    padding: 10px 20px;
+    background: #f2f2f2;
+    transition: all ease-in-out .2s;
+  }
+
+  input:checked {
+    ~ label {
+      background: #84CF6A;
+    }
+  }
+}
+
+.flex {
+  display: flex;
+
+  &__ligne {
+    flex-flow: row wrap;
+  }
+}
