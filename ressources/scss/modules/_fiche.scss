@@ -53,7 +53,8 @@ img {
 
 .cart {
   border: 1px solid #d8d8d8;
-  margin: 0 20px;
+  margin: 20px 0;
+  width: fit-content;
   height: fit-content;
   padding: 10px 20px;
 
@@ -68,6 +69,7 @@ button {
   height: fit-content;
   background-color: #1E95EA;
   color: white;
+  margin-right: 20px;
   padding: 10px 20px;
 }
 
@@ -145,5 +147,20 @@ textarea {
 
   &__ligne {
     flex-flow: row wrap;
+  }
+}
+
+.couleurBas {
+  margin-right: 20px;
+  border: 1px solid #333;
+  border-radius: 2px;
+  padding: 10px 20px;
+
+  &:hover {
+    background: #f2f2f2;
+  }
+
+  &--on {
+    box-shadow: 1px 1px 1px 3px #333;
   }
 }

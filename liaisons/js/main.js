@@ -21,20 +21,28 @@ var app = new Vue({
         variations: [
             {
                 varId: 551,
-                varCouleur: "Vert"
+                varCouleur: "Vert",
+                varImage: 'liaisons/images/vmSocks-green-onWhite.jpg',
             },
             {
                 varId: 552,
-                varCouleur: "Bleu"
+                varCouleur: "Bleu",
+                varImage: 'liaisons/images/vmSocks-blue-onWhite.jpg',
             }
         ],
         grandeurs: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-        panier: 0,
+        panier: 0
     },
-
     methods: {
-        ajouter: function () {
+        ajouter() {
             this.panier += 1;
+        },
+        retirer() {
+            this.panier -= 1;
+        },
+        majProduct(varImage) {
+            this.image = varImage;
+            this.addClass('couleurBas--on');
         }
     }
 });
