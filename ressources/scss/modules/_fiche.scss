@@ -46,9 +46,10 @@ img {
 }
 
 .color-box {
+  display: inline-block;
   width: 40px;
   height: 40px;
-  margin-top: 5px;
+  margin: 5px;
 }
 
 .cart {
@@ -133,9 +134,13 @@ textarea {
     padding: 10px 20px;
     background: #f2f2f2;
     transition: all ease-in-out .2s;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  input:checked {
+  input:checked, input:focus {
     ~ label {
       background: #84CF6A;
     }
@@ -151,10 +156,16 @@ textarea {
 }
 
 .couleurBas {
+  display: flex;
+  align-items: center;
   margin-right: 20px;
-  border: 1px solid #333;
+  border: 1px solid #ddd;
   border-radius: 2px;
   padding: 10px 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &:hover {
     background: #f2f2f2;
@@ -163,4 +174,15 @@ textarea {
   &--on {
     box-shadow: 1px 1px 1px 3px #333;
   }
+}
+
+.darkMode {
+  max-width: fit-content;
+  padding: 20px 40px;
+  background: #0A2B4E;
+  color: white;
+}
+
+.ombre {
+  box-shadow: 0 0 15px -5px rgba(33, 33, 33, .5);
 }
