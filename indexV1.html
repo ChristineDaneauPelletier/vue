@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="liaisons/css/styles.css">
+    <title>Exploration de Vue.js | Exercice Socks</title>
+
+</head>
+<body>
+
+<header>
+    <nav class="nav-bar"></nav>
+</header>
+
+<main>
+    <div id="app">
+
+        <div class="product">
+
+            <!-- ------------------------------------------------------------------ -->
+            <!-- BINDING SUR LA SRC -->
+            <!-- ------------------------------------------------------------------ -->
+            <div class="product-image">
+                <img :src="image" />
+            </div>
+
+            <div class="product-info">
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- UTILISATION DE DATA (SIMPLE)-->
+                <!-- ------------------------------------------------------------------ -->
+                <h1>{{ title }}</h1>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- CONDITIONS DANS :CLASS / ? -->
+                <!-- ------------------------------------------------------------------ -->
+                <p :style="{ 'padding': '20px' }" :class="[dark? classesCommunes: '' ]">{{ description }}</p>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- CONDITIONS IF ELSE -->
+                <!-- ------------------------------------------------------------------ -->
+                <!--Quantité en inventaire-->
+                <p v-if="inventaire >= 10">En stock</p>
+                <p v-else-if="inventaire < 10 && inventaire > 0">
+                    Bientôt en rupture de stock !
+                    <br>Quantité restante : {{ inventaire }}
+                </p>
+                <p v-else>Présentement en rupture de stock</p>
+
+                <!--En solde (rabais)-->
+                <p v-if="enSolde === true">{{ solde }}</p>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- DÉTAILS - DARK MODE / BOUCLE FOREACH -->
+                <!-- ------------------------------------------------------------------ -->
+                <!--La classe darkMode est là seulement si le data dark est à true-->
+                <!--On aurait pu l'écrire comme ça: darkMode: dark === true-->
+                <ul :class="{ darkMode: dark }">
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- GRANDEURS - BOUTON RADIO -->
+                <!-- ------------------------------------------------------------------ -->
+                <ul class="liste__radio">
+                    <li v-for="grandeur in grandeurs">
+                        <!--Ici, on utilise le v-bind (:) pour avoir des attributs (id et for) dynamiques! :D -->
+                        <input
+                          type="radio"
+                          name="grandeur"
+                          :id="grandeur"
+                          class="screen-reader-only">
+                        <label :for="grandeur">{{ grandeur }}</label>
+                    </li>
+                </ul>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- BOÎTES DE COULEUR / VARIATIONS - BIND DES OBJETS DE STYLES / CLASS -->
+                <!-- ------------------------------------------------------------------ -->
+                <!--BACK UP-->
+                <!--<div class="flex">-->
+                    <!--<div v-for="variation in variations"-->
+                         <!--@mouseover="majProduct(variation.varImage)"-->
+                         <!--:key="variation.varId"-->
+                         <!--class="couleurBas"-->
+                         <!--:class="classesCommunes">-->
+                        <!--Voir en {{ variation.varCouleur }}-->
+                       <!--<span class="color-box"-->
+                             <!--:style="[ variation.stylesCouleurs, stylesCouleursCommun ]"></span>-->
+                        <!--&lt;!&ndash;:style="variation.stylesCouleurs"></span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;:style="{ 'background-color': 'red' }"></span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;on a la les 3 façon de faire des styles binding&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="flex">
+                    <div v-for="(variation, index) in variations"
+                         @mouseover="majProduct(index)"
+                         :key="variation.varId"
+                         class="couleurBas"
+                         :class="classesCommunes">
+                        Voir en {{ variation.varCouleur }}
+                       <span class="color-box"
+                             :style="[ variation.stylesCouleurs, stylesCouleursCommun ]"></span>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- HYPERLIEN DYNAMIQUE ET SHOW CONDITIONNEL -->
+                <!-- ------------------------------------------------------------------ -->
+                <p>
+                    <a :href="lien_plus">Plus de bas<span v-show="puer"> puants </span>!</a>
+                </p>
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- LE PANIER ET SES BOUTONS - ÉVÉNEMENTS / DISABLED / === -->
+                <!-- ------------------------------------------------------------------ -->
+
+                <div class="flex">
+                    <!--Ici, on utilise le v-on (@) pour ajouter des écouteurs d'événement -->
+                    <!--Utilisation de binding (:) pour l'activation / classe d'activation des boutons-->
+                    <button @click="ajouter"
+                            :disabled="inventaire === 0"
+                            :class="{ disabledButton: inventaire === 0 }">
+                        Ajouter au panier</button>
+                    <button @click="retirer"
+                            :disabled="panier === 0"
+                            :class="{ disabledButton: panier === 0 }">
+                        Retirer du panier</button>
+                </div>
+                <div class="cart">
+                    <p>Panier ({{ panier }})</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<footer></footer>
+
+<!-- CDN v2018 -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script>window.jQuery || document.write('<script src="node_modules/jquery/dist/jquery.min.js">\x3C/script>')</script>
+
+<!--Version de Vue.js la plus à jour-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="liaisons/js/main.js"></script>
+
+
+</body>
+</html>

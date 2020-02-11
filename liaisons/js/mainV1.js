@@ -3,8 +3,6 @@
  * Cours venant de Vue Mastery <https://www.vuemastery.com/courses>
  */
 
-Vue.component()
-
 
 
 var app = new Vue({
