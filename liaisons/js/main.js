@@ -85,7 +85,7 @@ Vue.component('produit__avis', {
                 let produitAvis = {
                     nom: this.valueNom,
                     avis: this.valueAvis,
-                    note: this.valueNote,
+                    note: Number(this.valueNote),
                     recommender: this.valueRecommender,
                 };
 

@@ -189,9 +189,16 @@ h2 {
 
 .ombre {
   box-shadow: 0 0 15px -5px rgba(33, 33, 33, .5);
+  width: fit-content;
+}
+
+.boutons {
+  width: 100%;
 }
 
 .avis {
+  width: 100%;
+
   ul {
     padding-left: 0;
     list-style: none;
@@ -202,4 +209,8 @@ h2 {
   li {
     width: 48%;
   }
+}
+
+[type='submit'] {
+  height: 50px;
 }
