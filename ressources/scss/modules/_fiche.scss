@@ -120,6 +120,10 @@ textarea {
  *
  */
 
+h2 {
+  width: 100%;
+}
+
 .liste__radio {
   list-style: none;
   padding: 20px 0;
@@ -185,4 +189,17 @@ textarea {
 
 .ombre {
   box-shadow: 0 0 15px -5px rgba(33, 33, 33, .5);
+}
+
+.avis {
+  ul {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  li {
+    width: 48%;
+  }
 }

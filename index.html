@@ -17,7 +17,16 @@
 
 <main>
     <div id="app">
-        <produit></produit>
+        <produit
+          :premium="premium"
+          @ajouter-au-panier="MAJajoutPanier"
+          @retirer-du-panier="MAJretirerPanier" >
+
+        </produit>
+
+        <div class="cart">
+            <p>Panier ({{ arrPanier.length }})</p>
+        </div>
     </div>
 
 </main>
