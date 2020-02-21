@@ -23,7 +23,7 @@ function styles(cb) {
 function watch(cb) {
     connect.server({}, function (){ browserSync( {
         // proxy: "localhost:8888/vueSocks" }); // cégep
-        proxy: "localhost/vueSocks" }); // maison
+        proxy: "localhost/vue/vueSocks" }); // maison
     });
     gulp.watch('./*.php').on("change",browserSync.reload);
     gulp.watch('./ressources/scss/**/*.scss', gulp.series('styles'));

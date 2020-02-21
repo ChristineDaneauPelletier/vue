@@ -97,8 +97,17 @@ textarea {
 }
 
 .tab {
-  margin-left: 20px;
+  display: inline-block;
+  margin: 0 20px -1px;
+  border: #ddd solid 1px;
+  padding: 10px 20px;
   cursor: pointer;
+  background: #f2f2f2;
+
+  &On {
+    background: #fff;
+    border-bottom-color: #fff;
+  }
 }
 
 .activeTab {
@@ -157,6 +166,10 @@ h2 {
   &__ligne {
     flex-flow: row wrap;
   }
+
+  &.boutons {
+    justify-content: flex-end;
+  }
 }
 
 .couleurBas {
@@ -189,7 +202,6 @@ h2 {
 
 .ombre {
   box-shadow: 0 0 15px -5px rgba(33, 33, 33, .5);
-  width: fit-content;
 }
 
 .boutons {
@@ -197,7 +209,9 @@ h2 {
 }
 
 .avis {
+  margin: 60px 0 0;
   width: 100%;
+  min-height: 730px;
 
   ul {
     padding-left: 0;
@@ -211,6 +225,14 @@ h2 {
   }
 }
 
+.btnOnglets {
+  border-bottom: #ddd 1px solid;
+}
+
 [type='submit'] {
   height: 50px;
+}
+
+.informations {
+  min-height: 230px;
 }

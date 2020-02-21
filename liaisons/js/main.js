@@ -3,146 +3,18 @@
  * Cours venant de Vue Mastery <https://www.vuemastery.com/courses>
  */
 
-// ** exemple de base pour le 2 ways data binding
-// Vue.component('produit__avis', {
-//     props: {},
-//
-//     // HTML
-//     //---------------------------------------------------------
-//     template: `
-//     <div><input v-model="valeur" type="text"></div>
-//     `,
-//
-//     // VARIABLES
-//     //---------------------------------------------------------
-//     data() {
-//         return{
-//             valeur: null,
-//         }
-//     }
-// });
-Vue.component('produit__avis', {
-    props: {},
 
-    // HTML
-    //---------------------------------------------------------
-    template: `
-    <form class="review-form" @submit.prevent="onSubmit" novalidate >
-    
-    <p v-if="arrErreurs.length"></p>
-        <b>Veuillez corriger ces erreur(s) : </b>
-        <ul>
-        <li v-for="erreur in arrErreurs">{{ erreur }}</li>
-</ul>
-    <p>
-        <label for="nom">Nom : </label>
-        <input v-model="valueNom" id="nom" type="text" required >
-    </p>
-    <p>
-        <label for="avis">Avis : </label>
-        <textarea v-model="valueAvis" id="avis" cols="30" rows="10" required></textarea>
-    </p>
-    <p>
-        <label for="note">Note : </label>
-        <select v-model.number="valueNote" id="note" required >
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-        </select>
-    </p>
-    <p>
-        <p>Recommenderiez-vous ce produit ?</p>
-        <label for="oui">Oui</label>
-        <input v-model="valueRecommender" id="oui" value="oui" type="radio" name="recommender" required >
-        <label for="non">Non</label>
-        <input v-model="valueRecommender" id="non" value="non" type="radio" name="recommender" >
-    </p>
-    <p>
-        <input type="submit" value="Soumettre">
-    </p>
-    </form>
-    `,
+// // //---------------------------------------------------------
+// // // GLOBAL CHANEL BUS -
+// // //---------------------------------------------------------
+// Communique de l'information pour tous les niveaux hiérachiques (ex de root à produit__onglet)
+let eventBus = new Vue();
 
-    // VARIABLES
-    //---------------------------------------------------------
-    data() {
-        return{
-            valueNom: null,
-            valueAvis: null,
-            valueNote: null,
-            valueRecommender: null,
-            arrErreurs: [],
-        }
-    },
 
-    // MÉTHODES
-    //---------------------------------------------------------
-    methods: {
-        onSubmit() {
-            if (this.valueNom && this.valueNote && this.valueAvis && this.valueRecommender) {
-                let produitAvis = {
-                    nom: this.valueNom,
-                    avis: this.valueAvis,
-                    note: Number(this.valueNote),
-                    recommender: this.valueRecommender,
-                };
 
-                this.$emit('avis-soumis', produitAvis);
-
-                // reset
-                this.valueNom = null;
-                this.valueAvis = null;
-                this.valueNote = null;
-                this.valueRecommender = null;
-                this.arrErreurs.splice(0);
-            }
-            else {
-                if (!this.valueNom) {
-                    this.arrErreurs.push('Veuillez entrer votre nom.');
-                }
-                if (!this.valueNote) {
-                    this.arrErreurs.push('Veuillez selectionner une note sur 5.');
-                }
-                if (!this.valueAvis) {
-                    this.arrErreurs.push('Veuillez composer un avis.');
-                }
-                if (!this.valueRecommender) {
-                    this.arrErreurs.push('Veuillez dire oui ou non.');
-                }
-            }
-        }
-    }
-
-});
-
-Vue.component('produit__details', {
-    props: {
-        details: {
-            type: Array,
-            required: true,
-        },
-        dark: {
-            type: Boolean,
-            required: true,
-        }
-    },
-
-    // HTML
-    //---------------------------------------------------------
-    template: `
-
-                <!-- ------------------------------------------------------------------ -->
-                <!-- DÉTAILS - DARK MODE / BOUCLE FOREACH -->
-                <!-- ------------------------------------------------------------------ -->
-                <!--La classe darkMode est là seulement si le data dark est à true-->
-                <!--On aurait pu l'écrire comme ça: darkMode: dark === true-->
-                <ul :class="{ darkMode: dark }">
-                    <li v-for="detail in details">{{ detail }}</li>
-                </ul>`,
-});
-
+// // //---------------------------------------------------------
+// // // PRODUIT
+// // //---------------------------------------------------------
 Vue.component('produit', {
     props: {
       premium: {
@@ -171,22 +43,29 @@ Vue.component('produit', {
                 <!-- ------------------------------------------------------------------ -->
                 <h1>{{ title }}</h1>
 
+
+                <!-- ------------------------------------------------------------- -->
+                <!-- ONGLETS AFFICHES LES DÉTAILS (avis) ET LA LIVRAISON -->
+                <!-- ------------------------------------------------------------- -->
+                <informations__onglets 
+                :details="details" 
+                :dark="dark" 
+                :livraison="livraison">
+                </informations__onglets> 
+                
+                
                 <!-- ------------------------------------------------------------------ -->
                 <!-- CONDITIONS DANS :CLASS / ? -->
                 <!-- ------------------------------------------------------------------ -->
                 <p :style="{ 'padding': '20px' }" :class="[dark? classesCommunes: '' ]">{{ description }}</p>
-
-
+                
+                
                 <!-- ------------------------------------------------------------------ -->
-                <!-- MINI TEMPLATE POUR LES DÉTAILS -->
+                <!-- UTILISATION DU PROPS PREMIUM -->
                 <!-- ------------------------------------------------------------------ -->
-                <produit__details :details="details" :dark="dark"></produit__details>
-
-                <!-- ------------------------------------------------------------------ -->
-                <!-- UTILISATION DU PROPS PREMIUM / SHIPPING-->
-                <!-- ------------------------------------------------------------------ -->
-                <p>L'utilisateur est premium : {{ premium }}</p>
-                <p>Livraison : {{ livraison }}</p>
+                <p>L'utilisateur est premium : {{ premium }}</p> 
+                
+                
                 
                 <!-- ------------------------------------------------------------------ -->
                 <!-- CONDITIONS IF ELSE -->
@@ -262,18 +141,13 @@ Vue.component('produit', {
             <!-- AVIS DES ACHETEURS -->
             <!-- ------------------------------------------------------------------ --> 
             <div class="avis">
-                <h2>Avis des acheteurs</h2>
-                <p v-if="arrAvis == 0">Il n'y a aucun avis pour le moment.</p>
-                <ul>
-                    <li v-for="avis in arrAvis">
-                    <p>Nom : {{ avis.nom }}</p>
-                    <p>Note : {{ avis.note }}</p>
-                    <p>Avis : {{ avis.avis }}</p>
-                    <p>Recommenderait : {{ avis.recommender }}</p>
-                    </li>
-                </ul>
+
+                <!-- ------------------------------------------------------------------------ -->
+                <!-- ONGLETS D'AFFICHE DES AVIS ÉCRITS (avis) ET DU FORMULAIRE (produit_avis) -->
+                <!-- ------------------------------------------------------------------------ -->
+                <produit__onglets :arrAvis="arrAvis"></produit__onglets> 
+            
             </div>
-                <produit__avis @avis-soumis="ajouterAvis"></produit__avis>
             
         </div>
 
@@ -331,7 +205,7 @@ Vue.component('produit', {
         }
     },
 
-    // METHODES
+    // MÉTHODES
     //---------------------------------------------------------
     methods: {
         ajouter: function() {
@@ -349,9 +223,11 @@ Vue.component('produit', {
             this.variationEnCours = index;
             // console.log(index);
         },
-        ajouterAvis(produitAvis) {
-            this.arrAvis.push(produitAvis);
-        }
+
+        // avant d'avoir le bus
+        // ajouterAvis(produitAvis) {
+        //     this.arrAvis.push(produitAvis);
+        // },
     },
 
     // DONNÉES CALCULÉES
@@ -379,11 +255,313 @@ Vue.component('produit', {
                 return '2.99 $'
             }
         }
+    },
+
+    // LIVECYCLE HOOK
+    //---------------------------------------------------------
+    // est execuré une fois que toute la structure a été placé dans le DOM
+    mounted() {
+        eventBus.$on('avis-soumis', produitAvis => {
+            this.arrAvis.push(produitAvis);
+        })
+    }
+
+});
+
+
+// // //---------------------------------------------------------
+// // // PRODUIT_AVIS
+// // //---------------------------------------------------------
+// ** exemple de base pour le 2 ways data binding
+// Vue.component('produit__avis', {
+//     props: {},
+//
+// // // HTML
+// // //---------------------------------------------------------
+//     template: `
+//     <div><input v-model="valeur" type="text"></div>
+//     `,
+//
+// // // VARIABLES
+// // //---------------------------------------------------------
+//     data() {
+//         return{
+//             valeur: null,
+//         }
+//     }
+// });
+Vue.component('produit__avis', {
+    props: {},
+
+    // HTML
+    //---------------------------------------------------------
+    template: `
+    <form class="review-form" @submit.prevent="onSubmit" novalidate >
+    
+    <p v-if="arrErreurs.length"></p>
+        <b>Veuillez corriger ces erreur(s) : </b>
+        <ul>
+        <li v-for="erreur in arrErreurs">{{ erreur }}</li>
+</ul>
+    <p>
+        <label for="nom">Nom : </label>
+        <input v-model="valueNom" id="nom" type="text" required >
+    </p>
+    <p>
+        <label for="avis">Avis : </label>
+        <textarea v-model="valueAvis" id="avis" cols="30" rows="10" required></textarea>
+    </p>
+    <p>
+        <label for="note">Note : </label>
+        <select v-model.number="valueNote" id="note" required >
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+        </select>
+    </p>
+    <p>
+        <p>Recommenderiez-vous ce produit ?</p>
+        <label for="oui">Oui</label>
+        <input v-model="valueRecommender" id="oui" value="oui" type="radio" name="recommender" required >
+        <label for="non">Non</label>
+        <input v-model="valueRecommender" id="non" value="non" type="radio" name="recommender" >
+    </p>
+    <p>
+        <input type="submit" value="Soumettre">
+    </p>
+    </form>
+    `,
+
+    // VARIABLES
+    //---------------------------------------------------------
+    data() {
+        return{
+            valueNom: null,
+            valueAvis: null,
+            valueNote: null,
+            valueRecommender: null,
+            arrErreurs: [],
+        }
+    },
+
+    // MÉTHODES
+    //---------------------------------------------------------
+    methods: {
+        onSubmit() {
+            if (this.valueNom && this.valueNote && this.valueAvis && this.valueRecommender) {
+                let produitAvis = {
+                    nom: this.valueNom,
+                    avis: this.valueAvis,
+                    note: Number(this.valueNote),
+                    recommender: this.valueRecommender,
+                };
+
+                // Avant le bus
+                // this.$emit('avis-soumis', produitAvis);
+                eventBus.$emit('avis-soumis', produitAvis);
+
+                // reset
+                this.valueNom = null;
+                this.valueAvis = null;
+                this.valueNote = null;
+                this.valueRecommender = null;
+                this.arrErreurs.splice(0);
+            }
+            else {
+                if (!this.valueNom) {
+                    this.arrErreurs.push('Veuillez entrer votre nom.');
+                }
+                if (!this.valueNote) {
+                    this.arrErreurs.push('Veuillez selectionner une note sur 5.');
+                }
+                if (!this.valueAvis) {
+                    this.arrErreurs.push('Veuillez composer un avis.');
+                }
+                if (!this.valueRecommender) {
+                    this.arrErreurs.push('Veuillez dire oui ou non.');
+                }
+            }
+        }
+    }
+
+});
+
+
+
+// // //---------------------------------------------------------
+// // // PRODUIT_ONGLETS
+// // //---------------------------------------------------------
+Vue.component('produit__onglets', {
+    props: {
+        arrAvis: {
+            type: Array,
+            required: true
+        }
+
+    },
+
+    // HTML
+    //---------------------------------------------------------
+    template: `
+    <div>
+        <div class="btnOnglets">
+            <span 
+            class="tab"
+            :class="{ tabOn: ongletEnCours === onglet }" 
+            v-for="(onglet, index) in onglets" 
+            :key="index" 
+            @click="ongletEnCours = onglet">
+                {{ onglet }} 
+            </span>
+        </div>
+        
+
+        <!--Ce qui va être affiché au clic de l'onglet-->
+        <div v-show="ongletEnCours === 'Avis'">
+            <h2>Avis des acheteurs</h2>
+            <p v-if="arrAvis == 0">Il n'y a aucun avis pour le moment.</p>
+            <ul>
+                <li v-for="avis in arrAvis">
+                <p>Nom : {{ avis.nom }}</p>
+                <p>Note : {{ avis.note }}</p>
+                <p>Avis : {{ avis.avis }}</p>
+                <p>Recommenderait : {{ avis.recommender }}</p>
+                </li>
+            </ul>
+        </div>
+        
+         <!--@avis-soumis="ajouterAvis"-->
+        <produit__avis v-show="ongletEnCours === 'Rédiger un avis'" ></produit__avis>
+    </div>
+    `,
+
+    // VARIABLES
+    //---------------------------------------------------------
+    data() {
+        return {
+            // Noms des onglets
+            onglets: ['Avis', 'Rédiger un avis'],
+
+            // Onglet en cours avec valeur par défaut
+            ongletEnCours: 'Avis',
+        }
     }
 });
 
 
 
+// // //---------------------------------------------------------
+// // // PRODUIT_DETAILS
+// // //---------------------------------------------------------
+Vue.component('produit__details', {
+    props: {
+        details: {
+            type: Array,
+            required: true,
+        },
+        dark: {
+            type: Boolean,
+            required: true,
+        },
+    },
+
+    // HTML
+    //---------------------------------------------------------
+    template: `
+
+                <!-- ------------------------------------------------------------------ -->
+                <!-- DÉTAILS - DARK MODE / BOUCLE FOREACH -->
+                <!-- ------------------------------------------------------------------ -->
+                <!--La classe darkMode est là seulement si le data dark est à true-->
+                <!--On aurait pu l'écrire comme ça: darkMode: dark === true-->
+                <ul :class="{ darkMode: dark }">
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+    `,
+});
+
+
+
+// // //---------------------------------------------------------
+// // // INFORMATIONS_ONGLETS
+// // //---------------------------------------------------------
+Vue.component('informations__onglets', {
+    props: {
+        details: {
+            type: Array,
+            required: true
+        },
+        dark: {
+            type: Boolean,
+            required: true,
+        },
+        livraison: {
+            required: true,
+        }
+    },
+
+    // HTML
+    //---------------------------------------------------------
+    template: `
+    <div class="informations">
+        <div class="btnOnglets">
+            <span 
+            class="tab"
+            :class="{ tabOn: ongletEnCours === onglet }" 
+            v-for="(onglet, index) in onglets" 
+            :key="index" 
+            @click="ongletEnCours = onglet">
+                {{ onglet }} 
+            </span>
+        </div>
+        
+
+        <!--Ce qui va être affiché au clic de l'onglet-->
+        <div v-show="ongletEnCours === 'Livraison'">
+            <h3>Livraison</h3>
+            
+                <!-- ------------------------------------------------------------------ -->
+                <!-- UTILISATION DU PROPS SHIPPING-->
+                <!-- ------------------------------------------------------------------ -->
+                <p>Livraison : {{ livraison }}</p>
+                
+        </div>
+        
+         <!--@avis-soumis="ajouterAvis"-->
+        <div v-show="ongletEnCours === 'Détails du produit'" >
+            <h3>Détails du produit</h3>
+        
+            <!-- ------------------------------------------------------------------ -->
+            <!-- MINI TEMPLATE POUR LES DÉTAILS -->
+            <!-- ------------------------------------------------------------------ -->
+            <produit__details :details="details" :dark="dark"></produit__details>
+        </div>
+    </div>
+    `,
+
+    // VARIABLES
+    //---------------------------------------------------------
+    data() {
+        return {
+            // Noms des onglets
+            onglets: ['Détails du produit', 'Livraison'],
+
+            // Onglet en cours avec valeur par défaut
+            ongletEnCours: 'Détails du produit',
+        }
+    }
+
+});
+
+
+
+
+
+// // //---------------------------------------------------------
+// // // ROOT
+// // //---------------------------------------------------------
 var app = new Vue({
     el: '#app',
 
@@ -409,7 +587,4 @@ var app = new Vue({
             }
         },
     },
-
-    // DONNÉES CALCULÉES
-    //---------------------------------------------------------
 });
